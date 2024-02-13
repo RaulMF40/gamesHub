@@ -1,0 +1,30 @@
+:root {
+  --bck-color-primary: #ff2600;
+  --bck-color-secondary: #000000;
+  --color-primary: #ffff;
+  --color-secondary: #df4a30;
+  --color-terciary: #ffb700;
+  --color-4: #b0c90c54;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--bck-color-primary);
+}
+html,
+body,
+header,
+#app,
+.game-container,
+#disordered {
+  background-image: url('https://www.transparenttextures.com/patterns/tileable-wood-colored.png');
+  transition: 0.7s ease;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
