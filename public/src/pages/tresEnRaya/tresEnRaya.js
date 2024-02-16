@@ -7,75 +7,36 @@ export const tresEnRaya = () => {
     ['', '', ''],
     ['', '', '']
   ]
-
   let currentPlayer = ''
   let pcPlayer = ''
   const winningCombinations = [
-    ['00', '01', '02'], // Primera fila
-    ['00', '02', '01'], // Primera fila
-    ['01', '00', '02'], // Primera fila
-    ['01', '02', '00'], // Primera fila
-    ['02', '00', '01'], // Primera fila
-    ['02', '01', '00'], // Primera fila
+    ['00', '01', '02'],
+    ['10', '11', '12'],
+    ['20', '21', '22'],
 
-    ['10', '11', '12'], // Segunda fila
-    ['10', '12', '11'], // Segunda fila
-    ['11', '10', '12'], // Segunda fila
-    ['11', '12', '10'], // Segunda fila
-    ['12', '10', '11'], // Segunda fila
-    ['12', '11', '10'], // Segunda fila
+    ['00', '10', '20'],
+    ['01', '11', '21'],
+    ['02', '12', '22'],
 
-    ['20', '21', '22'], // Tercera fila
-    ['20', '22', '21'], // Tercera fila
-    ['21', '20', '22'], // Tercera fila
-    ['21', '22', '20'], // Tercera fila
-    ['22', '20', '21'], // Tercera fila
-    ['22', '21', '20'], // Tercera fila
-
-    // Columnas
-    ['00', '10', '20'], // Primera columna
-    ['00', '20', '10'], // Primera columna
-    ['10', '00', '20'], // Primera columna
-    ['10', '20', '00'], // Primera columna
-    ['20', '00', '10'], // Primera columna
-    ['20', '10', '00'], // Primera columna
-
-    ['01', '11', '21'], // Segunda columna
-    ['01', '21', '11'], // Segunda columna
-    ['11', '01', '21'], // Segunda columna
-    ['11', '21', '01'], // Segunda columna
-    ['21', '01', '11'], // Segunda columna
-    ['21', '11', '01'], // Segunda columna
-
-    ['02', '12', '22'], // Tercera columna
-    ['02', '22', '12'], // Tercera columna
-    ['12', '02', '22'], // Tercera columna
-    ['12', '22', '02'], // Tercera columna
-    ['22', '02', '12'], // Tercera columna
-    ['22', '12', '02'], // Tercera columna
-
-    // Diagonales
-    ['00', '11', '22'], // Diagonal principal
-    ['00', '22', '11'], // Diagonal principal
-    ['11', '00', '22'], // Diagonal principal
-    ['11', '22', '00'], // Diagonal principal
-    ['22', '00', '11'], // Diagonal principal
-    ['22', '11', '00'], // Diagonal principal
-
-    ['02', '11', '20'], // Diagonal secundaria
-    ['02', '20', '11'], // Diagonal secundaria
-    ['11', '02', '20'], // Diagonal secundaria
-    ['11', '20', '02'], // Diagonal secundaria
-    ['20', '02', '11'], // Diagonal secundaria
-    ['20', '11', '02'] // Diagonal secundaria
+    ['00', '11', '22'],
+    ['02', '11', '20']
   ]
-  const clicked = []
+  let gameOver = false
+
+  const bloquearTablero = () => {
+    const casillas = document.querySelectorAll('.box')
+    casillas.forEach((casilla) => {
+      casilla.removeEventListener('click', boxClicked)
+      casilla.style.pointerEvents = 'none'
+    })
+  }
 
   const clickedPlayer = (e) => {
+    if (currentPlayer || gameOver) {
+      return
+    }
     const playerChosen = e.target
-    console.log(playerChosen)
-
-    document.querySelectorAll('.player').forEach((player) => {
+    const player = document.querySelectorAll('.player').forEach((player) => {
       player.classList.remove('focus')
     })
     playerChosen.classList.add('focus')
@@ -84,19 +45,49 @@ export const tresEnRaya = () => {
   const getEmptyBoxes = () => {
     return document.querySelectorAll('.box:not(.clicked)')
   }
-
-  const pcMovement = (pcPlayer) => {
+  const checkTie = () => {
+    let allCellsFilled = true
     const emptyBoxes = getEmptyBoxes()
+    if (emptyBoxes.length > 0) {
+      allCellsFilled = false
+    }
+    if (allCellsFilled && !checkWinner()) {
+      const tieMessage = document.createElement('h3')
+      tieMessage.innerText = '¡Ha habido un empate!'
+      tieMessage.className = 'result'
+      const buttonContainer = document.querySelector('.button-container')
+      buttonContainer.append(tieMessage)
+      gameOver = true
+      bloquearTablero()
+      return true
+    }
+
+    return false
+  }
+
+  const pcMovement = () => {
+    if (gameOver) return
+    const emptyBoxes = getEmptyBoxes()
+    if (emptyBoxes.length === 0) return
     const randomIndex = Math.floor(Math.random() * emptyBoxes.length)
     const randomBox = emptyBoxes[randomIndex]
     const pc = document.createElement('span')
-    pc.innerText = pcPlayer
-    randomBox.append(pc)
+    pc.innerText = currentPlayer === 'X' ? 'O' : 'X'
+    randomBox.appendChild(pc)
     randomBox.classList.add('clicked')
-    return randomBox
+    const row = randomBox.getAttribute('data-row')
+    const col = randomBox.getAttribute('data-col')
+    arrayBoard[row][col] = currentPlayer === 'X' ? 'O' : 'X'
+    if (checkWinner() || checkTie() || checkLoose()) {
+      gameOver = true
+      bloquearTablero()
+      return
+    }
+    checkTie()
   }
 
   const checkWinner = () => {
+    if (!currentPlayer) return
     for (const combination of winningCombinations) {
       const [box1, box2, box3] = combination
       const elem1 = document.querySelector(
@@ -116,34 +107,61 @@ export const tresEnRaya = () => {
       ) {
         const winMessage = document.createElement('h3')
         winMessage.innerText = '¡Ganaste!'
-        winMessage.className = 'win'
+        winMessage.className = 'result'
         const buttonContainer = document.querySelector('.button-container')
         buttonContainer.append(winMessage)
+        gameOver = true
+        bloquearTablero()
         return true
       }
     }
     return false
   }
+  const checkLoose = () => {
+    setTimeout(() => {
+      if (!pcPlayer) return
+      for (const combination of winningCombinations) {
+        const [box1, box2, box3] = combination
+        const elem1 = document.querySelector(
+          `[data-row="${box1.charAt(0)}"][data-col="${box1.charAt(1)}"]`
+        )
+        const elem2 = document.querySelector(
+          `[data-row="${box2.charAt(0)}"][data-col="${box2.charAt(1)}"]`
+        )
+        const elem3 = document.querySelector(
+          `[data-row="${box3.charAt(0)}"][data-col="${box3.charAt(1)}"]`
+        )
 
+        if (
+          elem1.innerText === pcPlayer &&
+          elem2.innerText === pcPlayer &&
+          elem3.innerText === pcPlayer
+        ) {
+          const looseMessage = document.createElement('h3')
+          looseMessage.innerText = '¡Has perdido!'
+          looseMessage.className = 'result'
+          const buttonContainer = document.querySelector('.button-container')
+          buttonContainer.append(looseMessage)
+          gameOver = true
+          bloquearTablero()
+          return true
+        }
+      }
+      return false
+    }, 500)
+  }
   const boxClicked = (e) => {
+    if (!currentPlayer || gameOver) return
     const clickedBox = e.target
-    const getCoords = () => {
-      const row = clickedBox.getAttribute('data-row')
-      const col = clickedBox.getAttribute('data-col')
-      const result = `${row}${col}`
-      return result
+    if (clickedBox.classList.contains('clicked')) {
+      return
     }
-    const coords = getCoords()
-    clicked.push(coords)
-
-    console.log(clicked)
+    const row = clickedBox.getAttribute('data-row')
+    const col = clickedBox.getAttribute('data-col')
+    if (arrayBoard[row][col] !== '') {
+      return
+    }
     const moveChosen = () => {
-      if (clickedBox.classList.contains('clicked')) {
-        return
-      }
-      if (clicked.length >= 3) {
-        checkWinner()
-      }
       if (currentPlayer === 'X') {
         const Xmove = document.createElement('span')
         Xmove.innerHTML = 'X'
@@ -165,7 +183,8 @@ export const tresEnRaya = () => {
       }
     }
     moveChosen()
-    console.log(pcPlayer)
+    checkWinner()
+    checkTie()
   }
 
   const printGame = (array) => {
@@ -178,12 +197,19 @@ export const tresEnRaya = () => {
     const reloadButton = document.createElement('button')
     reloadButton.className = 'reload'
     reloadButton.innerText = 'Reiniciar partida'
-
+    reloadButton.addEventListener('click', () => {
+      const app = document.querySelector('#app')
+      app.innerHTML = ''
+      tresEnRaya()
+    })
+    const playerDiv = document.createElement('div')
+    playerDiv.className = 'player-div'
+    buttonContainer.append(playerDiv)
     players.forEach((player) => {
       const buttonPlayer = document.createElement('button')
       buttonPlayer.className = 'player'
       buttonPlayer.innerText = player
-      buttonContainer.append(buttonPlayer)
+      playerDiv.append(buttonPlayer)
       buttonPlayer.addEventListener('click', clickedPlayer)
     })
     buttonContainer.append(reloadButton)
@@ -198,6 +224,7 @@ export const tresEnRaya = () => {
         const box = row[j]
         const boxBoard = document.createElement('div')
         boxBoard.className = 'box'
+        boxBoard.id = box
         boxBoard.setAttribute('data-row', i)
         boxBoard.setAttribute('data-col', j)
         rowBoard.append(boxBoard)

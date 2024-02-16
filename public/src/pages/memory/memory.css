@@ -9,7 +9,7 @@
 }
 #app {
   position: relative;
-  /* width: 100%; */
+  gap: 2rem;
   top: 7rem;
   display: flex;
   flex-wrap: wrap;
@@ -51,7 +51,7 @@
 .game-container {
   background-color: transparent;
   width: 40rem;
-  margin: auto;
+  /* margin: auto; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
@@ -108,7 +108,7 @@
   color: var(--bck-color-secondary);
 }
 
-@media (max-width: 650px) {
+@media (max-width: 831px) {
   #app {
     top: 17rem;
     width: 100%;

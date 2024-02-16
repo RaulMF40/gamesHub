@@ -33,6 +33,7 @@ a {
   margin-right: 4rem;
   background-color: var(--color-4);
   color: var(--color-);
+  cursor: pointer;
 }
 .nav {
   background-color: rgba(221, 179, 179, 0);
