@@ -1,4 +1,4 @@
-import './TresEnRaya.css'
+import './tresEnRaya.css'
 
 export const tresEnRaya = () => {
   const players = ['X', 'O']
