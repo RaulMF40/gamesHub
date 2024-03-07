@@ -1,102 +1,108 @@
 import './trivial.css'
 
-export const trivial = (array) => {
-  const shuffledArray = array.sort(() => Math.random() - 0.5)
-  let questionIndex = 0
-  let count = 0
-  let intentos = 0
-  const checkLoose = () => {
-    if (intentos >= count * 2) {
-      const app = document.querySelector('#app')
-      app.innerHTML = ''
-      const finalDiv = document.createElement('div')
-      finalDiv.className = 'final'
-      const loose = document.createElement('h2')
-      loose.className = 'loose'
-      loose.innerHTML = '¡Has perdido!'
-      const reloadButton = document.createElement('button')
-      reloadButton.className = 'reload'
-      reloadButton.innerText = 'Reiniciar partida'
-      reloadButton.addEventListener('click', () => {
-        const app = document.querySelector('#app')
-        app.innerHTML = ''
-        trivial(array)
-      })
-      finalDiv.append(reloadButton, loose)
-      app.append(finalDiv)
-      return
+export const trivial = (QUIZ) => {
+  let aciertos = 0
+  let fallos = 0
+  let preguntasResueltas = []
+  let preguntasPendientes = []
+  const gameContainer = document.createElement('div')
+  gameContainer.className = 'container'
+  const app = document.querySelector('#app')
+  app.append(gameContainer)
+
+  const iniciarTrivial = () => {
+    mostrarBotonesTematicas()
+  }
+
+  const mostrarBotonesTematicas = () => {
+    gameContainer.innerHTML = ''
+
+    const buttonContainer = document.createElement('div')
+    buttonContainer.className = 'button-container'
+
+    for (const item of QUIZ) {
+      const buttonTheme = createButtonTheme(item)
+      buttonContainer.appendChild(buttonTheme)
+    }
+
+    gameContainer.appendChild(buttonContainer)
+  }
+
+  const createButtonTheme = (item) => {
+    const buttonTheme = document.createElement('button')
+    buttonTheme.className = 'button-theme'
+    buttonTheme.setAttribute('data-tema', item.tematica)
+    const imageButton = document.createElement('img')
+    imageButton.className = 'image-icon'
+    imageButton.src = item.image
+    buttonTheme.append(imageButton)
+    gameContainer.appendChild(buttonTheme)
+    buttonTheme.addEventListener('click', () => {
+      mostrarPreguntas(item.preguntas)
+    })
+
+    return buttonTheme
+  }
+
+  const mostrarPreguntas = (preguntas) => {
+    gameContainer.innerHTML = ''
+    preguntasPendientes = [...preguntas]
+    mostrarSiguientePregunta()
+  }
+
+  const mostrarSiguientePregunta = () => {
+    if (preguntasPendientes.length > 0) {
+      const pregunta = preguntasPendientes.shift()
+      mostrarPregunta(pregunta)
+    } else {
+      mostrarResultados()
     }
   }
-  const printGame = (array) => {
-    const currentQuestion = shuffledArray[questionIndex]
 
-    const gameContainer = document.createElement('div')
-    gameContainer.className = 'trivial-container'
-
+  const mostrarPregunta = (pregunta) => {
+    const gameContainer = document.querySelector('.container')
+    gameContainer.innerHTML = ''
     const questionContainer = document.createElement('div')
     questionContainer.className = 'question-container'
-
     const question = document.createElement('h3')
     question.className = 'question'
-    question.innerText = currentQuestion.pregunta
-    questionContainer.append(question)
+    question.textContent = pregunta.pregunta
+    questionContainer.appendChild(question)
 
     const answerContainer = document.createElement('div')
     answerContainer.className = 'answer-container'
-    currentQuestion.respuestas.forEach((option) => {
-      const options = document.createElement('h4')
-      options.className = 'option'
-      options.innerText = option.answer
-      options.addEventListener('click', () => {
-        if (option.value === true) {
-          options.classList.add('correct')
-          options.style.backgroundColor = 'green'
-          setTimeout(() => {
-            app.innerHTML = ''
-            count++
-            intentos++
-            questionIndex++
-            if (questionIndex < shuffledArray.length) {
-              printGame(array)
-            } else {
-              app.innerHTML = ''
-              const endMessage = document.createElement('p')
-              endMessage.className = 'end'
-              endMessage.innerText = '¡Fin del juego! ¡Enhorabuena!'
-              app.appendChild(endMessage)
-            }
-          }, 1000)
+
+    pregunta.respuestas.forEach((respuesta) => {
+      const answerButton = document.createElement('button')
+      answerButton.className = 'answer'
+      answerButton.textContent = respuesta.texto
+      answerButton.addEventListener('click', () => {
+        if (respuesta.correcta) {
+          aciertos++
         } else {
-          setTimeout(() => {
-            intentos++
-            jugadas.innerHTML = `Intentos: ${intentos}`
-            checkLoose()
-          }, 1000)
-          options.classList.add('error')
-          options.style.backgroundColor = 'red'
+          fallos++
         }
+        mostrarSiguientePregunta()
       })
-      answerContainer.append(options)
+      answerContainer.appendChild(answerButton)
     })
-    const playerInfo = document.createElement('div')
-    playerInfo.className = 'player-container'
-    const jugadas = document.createElement('span')
-    jugadas.innerHTML = `Intentos:` + ' ' + intentos
-    const counter = document.createElement('span')
-    counter.innerHTML = `Puntos:` + ' ' + count
-    const reloadButton = document.createElement('button')
-    reloadButton.className = 'reload'
-    reloadButton.innerText = 'Reiniciar partida'
-    reloadButton.addEventListener('click', () => {
-      const app = document.querySelector('#app')
-      app.innerHTML = ''
-      trivial(array)
-    })
-    gameContainer.append(questionContainer, answerContainer)
-    playerInfo.append(reloadButton, counter, jugadas)
-    const app = document.querySelector('#app')
-    app.append(playerInfo, gameContainer)
+    gameContainer.appendChild(questionContainer)
+    gameContainer.appendChild(answerContainer)
   }
 
-  printGame(array)
+  const mostrarResultados = () => {
+    const gameContainer = document.querySelector('.container')
+    gameContainer.innerHTML = ''
+    const resultadosContainer = document.createElement('div')
+    resultadosContainer.className = 'resultados-container'
+    const aciertosElement = document.createElement('p')
+    aciertosElement.textContent = `Aciertos: ${aciertos}`
+    const fallosElement = document.createElement('p')
+    fallosElement.textContent = `Fallos: ${fallos}`
+    resultadosContainer.appendChild(aciertosElement)
+    resultadosContainer.appendChild(fallosElement)
+    gameContainer.appendChild(resultadosContainer)
+  }
+
+  iniciarTrivial()
 }

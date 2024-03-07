@@ -22,6 +22,9 @@ export const memory = (data) => {
   ]
   let flipped = []
   let score = 0
+  let contador = 0
+  let tries = 0
+  let gameInitiated = false
 
   const createBoard = (array, data) => {
     const tablero = document.createElement('div')
@@ -30,7 +33,7 @@ export const memory = (data) => {
 
     array.forEach((card) => {
       const flipCard = document.createElement('div')
-      flipCard.className = 'flip-card'
+      flipCard.className = 'flip-card disabled'
       flipCard.addEventListener('click', handleCardClick)
 
       const flipCardInner = document.createElement('div')
@@ -80,30 +83,65 @@ export const memory = (data) => {
         score++
 
         document.querySelector('#score').innerText = `Puntuación: ${score}`
-        if (score === cards.length / 2) {
-          const winMessage = document.createElement('h3')
-          winMessage.innerText = '¡Ganaste!'
-          winMessage.className = 'win-text'
-          counterScore.append(winMessage)
-        }
       } else {
         setTimeout(() => {
           flipped.forEach((card) => card.classList.remove('flipped'))
           flipped = []
         }, 700)
       }
+      document.querySelector('#tries').innerText = `Intentos: ${tries}`
+      tries++
     }
   }
+
+  const iniciarContador = () => {
+    gameInitiated = true
+    const time = document.createElement('p')
+    time.className = 'time'
+    time.innerText = contador
+    timeCounterStart.appendChild(time)
+
+    const intervalo = setInterval(() => {
+      contador++
+      time.innerText = contador + `segundos`
+
+      if (score === cards.length / 2) {
+        clearInterval(intervalo)
+        const winMessage = document.createElement('h3')
+        winMessage.innerText = '¡Ganaste!'
+        winMessage.className = 'win-text'
+        counterScore.append(winMessage)
+      }
+    }, 1000)
+
+    const cards = document.querySelectorAll('.flip-card')
+    cards.forEach((card) => card.classList.remove('disabled'))
+    return intervalo
+  }
+
   const divContainerApp = document.createElement('div')
   divContainerApp.className = 'container-app'
+  const timeCounterStart = document.createElement('button')
+  timeCounterStart.className = 'time-start'
+  timeCounterStart.innerText = 'Start'
+  timeCounterStart.addEventListener('click', iniciarContador)
   const counterScore = document.createElement('h2')
   counterScore.className = 'counter-title'
   counterScore.id = 'score'
   counterScore.innerText = `Puntuación: ${score}`
+  const triesScore = document.createElement('h2')
+  triesScore.className = 'counter-title'
+  triesScore.id = 'tries'
+  triesScore.innerText = `Intentos: ${tries}`
   const reloadButton = document.createElement('button')
   reloadButton.className = 'reload'
   reloadButton.innerText = 'Reiniciar partida'
-  divContainerApp.append(counterScore, reloadButton)
+  divContainerApp.append(
+    timeCounterStart,
+    counterScore,
+    triesScore,
+    reloadButton
+  )
   const app = document.querySelector('#app')
   app.append(divContainerApp)
 

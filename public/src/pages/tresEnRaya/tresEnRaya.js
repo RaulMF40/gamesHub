@@ -22,6 +22,8 @@ export const tresEnRaya = () => {
     ['02', '11', '20']
   ]
   let gameOver = false
+  let playerVictories = 0
+  let pcVictories = 0
 
   const bloquearTablero = () => {
     const casillas = document.querySelectorAll('.box')

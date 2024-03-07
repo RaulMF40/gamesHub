@@ -21,109 +21,246 @@ export const GAMES = [
 
 export const QUIZ = [
   {
-    pregunta:
-      '¿Qué importante figura del movimiento por los derechos civiles en Estados Unidos es conocida por su activismo pacífico y su discurso "I Have a Dream" ("Tengo un sueño")?',
-    respuestas: [
-      { answer: 'Martin Luther King Jr.', value: true },
-      { answer: 'Nelson Mandela', value: false },
-      { answer: 'Bill Gates', value: false },
-      { answer: 'Bill Clinton', value: false }
-    ]
-  },
-  {
-    pregunta:
-      '¿Qué mujer afroamericana fue una importante figura en el movimiento por los derechos civiles en Estados Unidos y es conocida por su activismo contra la discriminación racial, especialmente por su papel en el boicot a los autobuses de Montgomery en 1955?',
-    respuestas: [
-      { answer: 'Audre Lorde', value: false },
-      { answer: 'Angela Davis', value: false },
-      { answer: 'Rosa Parks', value: true },
-      { answer: 'bell  Hooks', value: false }
-    ]
-  },
-  {
-    pregunta:
-      '¿Quién fue la primera mujer en obtener un Premio Nobel en dos campos diferentes, Física y Química?',
-    respuestas: [
-      { answer: 'Frida Kalho', value: false },
-      { answer: 'Simone De Beauvoir', value: false },
-      { answer: 'Vandana Shiva', value: false },
-      { answer: 'Marie Curie', value: true }
-    ]
-  },
-  {
-    pregunta:
-      '¿Cuál fue el evento que marcó el inicio del proceso de descolonización en África en la década de 1950?',
-    respuestas: [
+    tematica: 'Juego de Tronos',
+    image:
+      'https://cdn4.iconfinder.com/data/icons/game-of-thrones-4/64/game_of_thrones_game_thrones_king_walker_north_winter_series-512.png',
+    preguntas: [
       {
-        answer: 'Tratado de Roma de 1957',
-        value: false
+        pregunta: '¿Quién es el Rey de los Siete Reinos al inicio de la serie?',
+        respuestas: [
+          { texto: 'Robert Baratheon', correcta: true },
+          { texto: 'Ned Stark', correcta: false },
+          { texto: 'Tywin Lannister', correcta: false },
+          { texto: 'Aerys Targaryen', correcta: false }
+        ]
       },
       {
-        answer: 'La independencia de Ghana en 1957',
-        value: true
+        pregunta: '¿Cómo se llama el continente donde se desarrolla la serie?',
+        respuestas: [
+          { texto: 'Westeros', correcta: false },
+          { texto: 'Essos', correcta: false },
+          { texto: 'Poniente', correcta: true },
+          { texto: 'Dorne', correcta: false }
+        ]
       },
-      { answer: 'Guerra de Corea (1950-1953)', value: false },
-      { answer: 'Creación de la OTAN en 1949', value: false }
+      {
+        pregunta: '¿Quién asesina al Rey Robert Baratheon?',
+        respuestas: [
+          { texto: 'Cersei Lannister', correcta: true },
+          { texto: 'Jaime Lannister', correcta: false },
+          { texto: 'Tyrion Lannister', correcta: false },
+          { texto: 'Joffrey Baratheon', correcta: false }
+        ]
+      },
+      {
+        pregunta: '¿Qué casa lidera la región de Winterfell?',
+        respuestas: [
+          { texto: 'Stark', correcta: true },
+          { texto: 'Targaryen', correcta: false },
+          { texto: 'Lannister', correcta: false },
+          { texto: 'Baratheon', correcta: false }
+        ]
+      },
+      {
+        pregunta: '¿Cuál es el lema de la Casa Lannister?',
+        respuestas: [
+          { texto: 'Ours is the Fury', correcta: false },
+          { texto: 'Hear Me Roar!', correcta: true },
+          { texto: 'Unbowed, Unbent, Unbroken', correcta: false },
+          { texto: 'We Do Not Sow', correcta: false }
+        ]
+      },
+      {
+        pregunta: "¿Qué es 'Valar Morghulis'?",
+        respuestas: [
+          { texto: 'Todos los hombres deben morir', correcta: true },
+          { texto: 'El invierno está llegando', correcta: false },
+          { texto: 'Fuego y sangre', correcta: false },
+          { texto: 'Un vaso de vino, por favor', correcta: false }
+        ]
+      },
+      {
+        pregunta:
+          '¿Quién lidera la Guardia de la Noche al principio de la serie?',
+        respuestas: [
+          { texto: 'Jeor Mormont', correcta: true },
+          { texto: 'Jon Nieve', correcta: false },
+          { texto: 'Ser Alliser Thorne', correcta: false },
+          { texto: 'Qhorin Mediamano', correcta: false }
+        ]
+      },
+      {
+        pregunta: '¿Qué arma especial utiliza Arya Stark?',
+        respuestas: [
+          { texto: 'Espada de acero valyrio', correcta: false },
+          { texto: 'Aguja', correcta: true },
+          { texto: 'Lanza', correcta: false },
+          { texto: 'Arco y flechas', correcta: false }
+        ]
+      }
     ]
   },
   {
-    pregunta:
-      '¿Quién fue la pintora mexicana conocida por sus obras surrealistas que exploran temas de identidad, género y política, y cuyo trabajo ha tenido un impacto duradero en el arte contemporáneo?',
-    respuestas: [
-      { answer: 'Frida Kalho', value: true },
-      { answer: 'Eva Perón', value: false },
-      { answer: 'Mercedes Sosa', value: false },
-      { answer: 'Violeta Parra', value: false }
+    tematica: 'Friends',
+    image: 'https://www.curiosite.es/img/auto_catalogo/w618/28198.jpg',
+    preguntas: [
+      {
+        pregunta:
+          '¿Cuál es el nombre del café donde siempre se reúnen los amigos?',
+        respuestas: [
+          { texto: 'Central Perk', correcta: true },
+          { texto: 'Coffee Time', correcta: false },
+          { texto: 'Café Friends', correcta: false },
+          { texto: 'Perk Central', correcta: false }
+        ]
+      },
+      {
+        pregunta: '¿Qué personaje interpreta Jennifer Aniston?',
+        respuestas: [
+          { texto: 'Rachel Green', correcta: true },
+          { texto: 'Monica Geller', correcta: false },
+          { texto: 'Phoebe Buffay', correcta: false },
+          { texto: 'Joey Tribbiani', correcta: false }
+        ]
+      },
+      {
+        pregunta: '¿Cuál es el trabajo de Ross Geller?',
+        respuestas: [
+          { texto: 'Paleontólogo', correcta: true },
+          { texto: 'Actor', correcta: false },
+          { texto: 'Chef', correcta: false },
+          { texto: 'Médico', correcta: false }
+        ]
+      },
+      {
+        pregunta: '¿Qué profesión tiene Chandler Bing?',
+        respuestas: [
+          { texto: 'Contable', correcta: false },
+          { texto: 'Publicista', correcta: false },
+          { texto: 'Ejecutivo de Ventas', correcta: false },
+          { texto: 'Analista Estadístico', correcta: true }
+        ]
+      },
+      {
+        pregunta: '¿Qué animal asusta a Chandler?',
+        respuestas: [
+          { texto: 'Gatos', correcta: false },
+          { texto: 'Ratones', correcta: false },
+          { texto: 'Perros', correcta: true },
+          { texto: 'Patos', correcta: false }
+        ]
+      },
+      {
+        pregunta: '¿En qué país Ross se casa con Emily?',
+        respuestas: [
+          { texto: 'Francia', correcta: false },
+          { texto: 'Reino Unido', correcta: true },
+          { texto: 'Italia', correcta: false },
+          { texto: 'España', correcta: false }
+        ]
+      },
+      {
+        pregunta: '¿Cuál es el segundo nombre de Chandler?',
+        respuestas: [
+          { texto: 'Bing', correcta: false },
+          { texto: 'Muriel', correcta: true },
+          { texto: 'Francis', correcta: false },
+          { texto: 'Kevin', correcta: false }
+        ]
+      },
+      {
+        pregunta: '¿En qué año se emitió el primer episodio de Friends?',
+        respuestas: [
+          { texto: '1994', correcta: false },
+          { texto: '1995', correcta: false },
+          { texto: '1996', correcta: false },
+          { texto: '1993', correcta: true }
+        ]
+      }
     ]
   },
   {
-    pregunta:
-      '¿Qué líder político sudafricano fue encarcelado durante 27 años por su lucha contra el apartheid y se convirtió en el primer presidente negro de Sudáfrica en 1994?',
-    respuestas: [
-      { answer: ' Malcolm X', value: false },
-      { answer: 'Winnie Mandela', value: false },
-      { answer: 'Nelson Mandela', value: true },
-      { answer: 'Mahatma Gandhi', value: false }
-    ]
-  },
-  {
-    pregunta:
-      '¿Cuál es el nombre del distintivo pañuelo de algodón con patrones de cuadros y franjas, tradicionalmente usado por el pueblo palestino como símbolo de identidad cultural y resistencia frente a la colonización israelí?',
-    respuestas: [
-      { answer: 'Kufiya', value: true },
-      { answer: 'Palestina', value: false },
-      { answer: 'Agal palestino', value: false },
-      { answer: 'Tarboosh', value: false }
-    ]
-  },
-  {
-    pregunta:
-      ' ¿Qué mujer española fue una defensora destacada de los derechos de las mujeres y una figura clave en la lucha por el sufragio femenino durante la Segunda República Española?',
-    respuestas: [
-      { answer: 'Victoria Kent', value: false },
-      { answer: 'Clara Campoamor', value: true },
-      { answer: 'Clara Zetkin', value: false },
-      { answer: 'Emmeline Pankhurst', value: false }
-    ]
-  },
-  {
-    pregunta:
-      '¿Qué reconocida cantante argentina, apodada "La Negra", se destacó por su poderosa voz y su compromiso con la música folclórica y la justicia social, y es conocida por éxitos como "Gracias a la vida" y "Alfonsina y el mar"?',
-    respuestas: [
-      { answer: 'Gloria Estefan', value: false },
-      { answer: 'Mónica Naranjo', value: false },
-      { answer: 'Gilda', value: false },
-      { answer: 'Mercedes Sosa', value: true }
-    ]
-  },
-  {
-    pregunta:
-      '¿Qué movimiento musical brasileño, surgido en la década de 1950, representa una forma de resistencia cultural y una expresión de la identidad nacional de Brasil, al combinar ritmos africanos con elementos de jazz y samba?',
-    respuestas: [
-      { answer: 'La Cumbia', value: false },
-      { answer: 'La Bossa Nova', value: true },
-      { answer: 'El Reagge', value: false },
-      { answer: 'El Frevo', value: false }
+    tematica: 'Vengadores',
+    image:
+      'https://d2bzx2vuetkzse.cloudfront.net/fit-in/0x450/unshoppable_producs/1cfbd69d-ab65-43b8-b2c0-a13ccb7e09e7.png',
+    preguntas: [
+      {
+        pregunta:
+          '¿Cuál de estos personajes no es un Vengador original en los cómics?',
+        respuestas: [
+          { texto: 'Spider-Man', correcta: false },
+          { texto: 'Hulk', correcta: true },
+          { texto: 'Thor', correcta: false },
+          { texto: 'Iron Man', correcta: false }
+        ]
+      },
+      {
+        pregunta:
+          '¿Cuál es la primera película de los Vengadores en el Universo Cinematográfico de Marvel?',
+        respuestas: [
+          { texto: 'Iron Man', correcta: false },
+          { texto: 'Thor', correcta: false },
+          { texto: 'Los Vengadores (The Avengers)', correcta: true },
+          { texto: 'Capitán América: El primer vengador', correcta: false }
+        ]
+      },
+      {
+        pregunta: '¿Cuál es el nombre real de Iron Man?',
+        respuestas: [
+          { texto: 'Tony Stark', correcta: true },
+          { texto: 'Steve Rogers', correcta: false },
+          { texto: 'Bruce Banner', correcta: false },
+          { texto: 'Peter Parker', correcta: false }
+        ]
+      },
+      {
+        pregunta: '¿Quién es el hermano de Thor?',
+        respuestas: [
+          { texto: 'Loki', correcta: true },
+          { texto: 'Heimdall', correcta: false },
+          { texto: 'Odin', correcta: false },
+          { texto: 'Frigga', correcta: false }
+        ]
+      },
+      {
+        pregunta:
+          "¿Quién es el villano principal en la película 'Vengadores: Infinity War'?",
+        respuestas: [
+          { texto: 'Loki', correcta: false },
+          { texto: 'Ultron', correcta: false },
+          { texto: 'Thanos', correcta: true },
+          { texto: 'Red Skull', correcta: false }
+        ]
+      },
+      {
+        pregunta: '¿Cuál es el nombre real de Capitán América?',
+        respuestas: [
+          { texto: 'Tony Stark', correcta: false },
+          { texto: 'Bruce Banner', correcta: false },
+          { texto: 'Steve Rogers', correcta: true },
+          { texto: 'Clint Barton', correcta: false }
+        ]
+      },
+      {
+        pregunta:
+          "¿Qué gema del infinito obtiene Thanos primero en la película 'Vengadores: Infinity War'?",
+        respuestas: [
+          { texto: 'Gema de la Mente', correcta: false },
+          { texto: 'Gema del Espacio', correcta: false },
+          { texto: 'Gema del Poder', correcta: true },
+          { texto: 'Gema del Tiempo', correcta: false }
+        ]
+      },
+      {
+        pregunta:
+          '¿Qué actor interpreta a Hulk en el Universo Cinematográfico de Marvel?',
+        respuestas: [
+          { texto: 'Chris Evans', correcta: false },
+          { texto: 'Chris Hemsworth', correcta: false },
+          { texto: 'Mark Ruffalo', correcta: true },
+          { texto: 'Robert Downey Jr.', correcta: false }
+        ]
+      }
     ]
   }
 ]

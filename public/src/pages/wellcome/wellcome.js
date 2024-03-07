@@ -8,13 +8,6 @@ export const wellcome = () => {
   const bottonPlay = document.createElement('button')
   bottonPlay.id = 'bottonPlay'
   bottonPlay.innerText = 'PLAY'
-  bottonPlay.addEventListener('click', () => {
-    app.innerHTML = ''
-    const chooseGameText = document.createElement('h2')
-    chooseGameText.id = 'choose-text'
-    chooseGameText.innerHTML = 'Escoge tu juego'
-    app.append(chooseGameText)
-  })
   wellcomeContainer.append(titleWellcome, bottonPlay)
   const containerGif = document.createElement('div')
   containerGif.id = 'containerGif'

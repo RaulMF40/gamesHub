@@ -16,6 +16,9 @@
   justify-content: center;
   align-items: center;
 }
+.disabled {
+  pointer-events: none;
+}
 .container-app {
   display: flex;
   flex-direction: column;
@@ -23,7 +26,12 @@
   justify-content: center;
   align-items: center;
 }
-.reload {
+.time {
+  background-color: transparent;
+  padding-top: 0.5rem;
+}
+.reload,
+.time-start {
   font-family: 'Monoton', sans-serif;
   letter-spacing: 0.4rem;
   padding: 1rem;
@@ -51,7 +59,6 @@
 .game-container {
   background-color: transparent;
   width: 40rem;
-  /* margin: auto; */
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr;
