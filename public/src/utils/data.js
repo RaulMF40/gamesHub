@@ -188,8 +188,8 @@ export const QUIZ = [
         pregunta:
           '¿Cuál de estos personajes no es un Vengador original en los cómics?',
         respuestas: [
-          { texto: 'Spider-Man', correcta: false },
-          { texto: 'Hulk', correcta: true },
+          { texto: 'Spider-Man', correcta: true },
+          { texto: 'Hulk', correcta: false },
           { texto: 'Thor', correcta: false },
           { texto: 'Iron Man', correcta: false }
         ]
